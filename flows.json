@@ -1,0 +1,582 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "51533121313128ad",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "1f827614651abbe7",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fbc7525fdf5128ad",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "19c58e8219e874d3",
+        "type": "sqlitedb",
+        "db": "/data/sqlite/mydb.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "1ded3a7d0c86223a",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    },
+    {
+        "id": "4d1239c1fe948326",
+        "type": "MySQLdatabase",
+        "name": "Cloud MySQL",
+        "host": "mysql-317386cb-learning-fe9c.i.aivencloud.com",
+        "port": "10599",
+        "db": "defaultdb",
+        "tz": "",
+        "charset": "UTF8"
+    },
+    {
+        "id": "dashboard_tab",
+        "type": "ui_tab",
+        "name": "Simulation",
+        "icon": "dashboard"
+    },
+    {
+        "id": "dashboard_group",
+        "type": "ui_group",
+        "name": "Simulation",
+        "tab": "dashboard_tab",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "b940aa14674d93ed",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Node-RED Dashboard",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "false",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "312b1c0bdc2afa25",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Trigger SQlite Query",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 240,
+        "wires": [
+            [
+                "87ece0181bc4ad65"
+            ]
+        ]
+    },
+    {
+        "id": "fa684acc48902c53",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "87ece0181bc4ad65",
+        "type": "sqlite",
+        "z": "f6f2187d.f17ca8",
+        "mydb": "19c58e8219e874d3",
+        "sqlquery": "fixed",
+        "sql": "SELECT * FROM users",
+        "name": "LocalSQL",
+        "x": 440,
+        "y": 240,
+        "wires": [
+            [
+                "fa684acc48902c53",
+                "f0e73c5997be671b"
+            ]
+        ]
+    },
+    {
+        "id": "f0e73c5997be671b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Format SQLite Data",
+        "func": "msg.payload = JSON.stringify(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 340,
+        "wires": [
+            [
+                "83fb5cf651f046ca"
+            ]
+        ]
+    },
+    {
+        "id": "83fb5cf651f046ca",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "Send to MQTT",
+        "topic": "sqlite/to/MySql",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1ded3a7d0c86223a",
+        "x": 880,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "3b1a6d870e2b723d",
+        "type": "mqtt in",
+        "z": "51533121313128ad",
+        "name": "Receive MQTT",
+        "topic": "sqlite/to/MySql",
+        "qos": "1",
+        "datatype": "json",
+        "broker": "1ded3a7d0c86223a",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 220,
+        "y": 260,
+        "wires": [
+            [
+                "701a8c4988967ca3",
+                "bfe53514ef701a9d"
+            ]
+        ]
+    },
+    {
+        "id": "64019938f037755d",
+        "type": "mysql",
+        "z": "51533121313128ad",
+        "mydb": "4d1239c1fe948326",
+        "name": "CloudMySQL",
+        "x": 780,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "701a8c4988967ca3",
+        "type": "function",
+        "z": "51533121313128ad",
+        "name": "function 1",
+        "func": "msg.topic = \"INSERT INTO users (id, name) VALUES (?, ?)\";\nmsg.payload = [msg.payload[0].id, msg.payload[0].name]; // Extract first row as [id, name]\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 520,
+        "y": 260,
+        "wires": [
+            [
+                "64019938f037755d",
+                "b620799692fe9e12"
+            ]
+        ]
+    },
+    {
+        "id": "bfe53514ef701a9d",
+        "type": "debug",
+        "z": "51533121313128ad",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "b620799692fe9e12",
+        "type": "debug",
+        "z": "51533121313128ad",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "problem_button",
+        "type": "ui_button",
+        "z": "1f827614651abbe7",
+        "name": "PROBLEM",
+        "group": "dashboard_group",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "PROBLEM",
+        "payload": "click",
+        "payloadType": "str",
+        "topic": "problem",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "problem_function"
+            ]
+        ]
+    },
+    {
+        "id": "ack_button",
+        "type": "ui_button",
+        "z": "1f827614651abbe7",
+        "name": "ACK",
+        "group": "dashboard_group",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ACK",
+        "payload": "click",
+        "payloadType": "str",
+        "topic": "ack",
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "ack_function"
+            ]
+        ]
+    },
+    {
+        "id": "problem_function",
+        "type": "function",
+        "z": "1f827614651abbe7",
+        "name": "Handle Problem",
+        "func": "let problemCount = flow.get('problemCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'problem') {\n    problemCount++;\n    isProblemActive = true;\n    flow.set('problemCount', problemCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { problemCount: problemCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "display_output"
+            ]
+        ]
+    },
+    {
+        "id": "ack_function",
+        "type": "function",
+        "z": "1f827614651abbe7",
+        "name": "Handle ACK",
+        "func": "let ackCount = flow.get('ackCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'ack' && isProblemActive) {\n    ackCount++;\n    isProblemActive = false;\n    flow.set('ackCount', ackCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { ackCount: ackCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "display_output"
+            ]
+        ]
+    },
+    {
+        "id": "display_output",
+        "type": "ui_template",
+        "z": "1f827614651abbe7",
+        "group": "dashboard_group",
+        "name": "Display Counts",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<div>\n    <p>Problem Count: {{msg.payload.problemCount || 0}}</p>\n    <p>ACK Count: {{msg.payload.ackCount || 0}}</p>\n    <p>Problem Active: {{msg.payload.isProblemActive ? 'Yes' : 'No'}}</p>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 700,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "082debc3ad6c15b2",
+        "type": "ui_button",
+        "z": "fbc7525fdf5128ad",
+        "name": "PROBLEM2",
+        "group": "dashboard_group",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "PROBLEM2",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "click",
+        "payloadType": "str",
+        "topic": "problem",
+        "topicType": "str",
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "6db99352c9276690"
+            ]
+        ]
+    },
+    {
+        "id": "73ef049c6943fa09",
+        "type": "ui_button",
+        "z": "fbc7525fdf5128ad",
+        "name": "ACK2",
+        "group": "dashboard_group",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ACK2",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "click",
+        "payloadType": "str",
+        "topic": "ack",
+        "topicType": "str",
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "d6edf2e7e0a4d13e"
+            ]
+        ]
+    },
+    {
+        "id": "6db99352c9276690",
+        "type": "function",
+        "z": "fbc7525fdf5128ad",
+        "name": "Handle Problem",
+        "func": "let problemCount = flow.get('problemCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'problem' && !isProblemActive) {\n    problemCount = 1;\n    isProblemActive = true;\n    flow.set('problemCount', problemCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { problemCount: problemCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 320,
+        "wires": [
+            [
+                "d1845c961e9e94f5"
+            ]
+        ]
+    },
+    {
+        "id": "d6edf2e7e0a4d13e",
+        "type": "function",
+        "z": "fbc7525fdf5128ad",
+        "name": "Handle ACK",
+        "func": "let ackCount = flow.get('ackCount') || 0;\nlet problemCount = flow.get('problemCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'ack' && isProblemActive) {\n    ackCount += problemCount;\n    problemCount = 0;\n    isProblemActive = false;\n    flow.set('ackCount', ackCount);\n    flow.set('problemCount', problemCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { ackCount: ackCount, problemCount: problemCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "d1845c961e9e94f5"
+            ]
+        ]
+    },
+    {
+        "id": "d1845c961e9e94f5",
+        "type": "ui_template",
+        "z": "fbc7525fdf5128ad",
+        "group": "dashboard_group",
+        "name": "Display Counts",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<div>\n    <p>Problem Count: {{msg.payload.problemCount || 0}}</p>\n    <p>ACK Count: {{msg.payload.ackCount || 0}}</p>\n    <p>Problem Active: {{msg.payload.isProblemActive ? 'Yes' : 'No'}}</p>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 700,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    }
+]
