@@ -1,0 +1,147 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "312b1c0bdc2afa25",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Trigger SQlite Query",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 190,
+        "y": 240,
+        "wires": [
+            [
+                "87ece0181bc4ad65"
+            ]
+        ]
+    },
+    {
+        "id": "fa684acc48902c53",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "87ece0181bc4ad65",
+        "type": "sqlite",
+        "z": "f6f2187d.f17ca8",
+        "mydb": "19c58e8219e874d3",
+        "sqlquery": "fixed",
+        "sql": "SELECT * FROM users",
+        "name": "LocalSQL",
+        "x": 440,
+        "y": 240,
+        "wires": [
+            [
+                "fa684acc48902c53",
+                "f0e73c5997be671b"
+            ]
+        ]
+    },
+    {
+        "id": "f0e73c5997be671b",
+        "type": "function",
+        "z": "f6f2187d.f17ca8",
+        "name": "Format SQLite Data",
+        "func": "msg.payload = JSON.stringify(msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 340,
+        "wires": [
+            [
+                "83fb5cf651f046ca"
+            ]
+        ]
+    },
+    {
+        "id": "83fb5cf651f046ca",
+        "type": "mqtt out",
+        "z": "f6f2187d.f17ca8",
+        "name": "Send to MQTT",
+        "topic": "sqlite/to/MySql",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "1ded3a7d0c86223a",
+        "x": 880,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "19c58e8219e874d3",
+        "type": "sqlitedb",
+        "db": "/data/sqlite/mydb.db",
+        "mode": "RWC"
+    },
+    {
+        "id": "1ded3a7d0c86223a",
+        "type": "mqtt-broker",
+        "name": "",
+        "broker": "broker.hivemq.com",
+        "port": 1883,
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": 4,
+        "keepalive": 60,
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]

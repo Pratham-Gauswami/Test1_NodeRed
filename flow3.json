@@ -1,0 +1,132 @@
+[
+    {
+        "id": "fbc7525fdf5128ad",
+        "type": "tab",
+        "label": "Flow 4",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "082debc3ad6c15b2",
+        "type": "ui_button",
+        "z": "fbc7525fdf5128ad",
+        "name": "PROBLEM2",
+        "group": "dashboard_group",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "PROBLEM2",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "click",
+        "payloadType": "str",
+        "topic": "problem",
+        "topicType": "str",
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "6db99352c9276690"
+            ]
+        ]
+    },
+    {
+        "id": "73ef049c6943fa09",
+        "type": "ui_button",
+        "z": "fbc7525fdf5128ad",
+        "name": "ACK2",
+        "group": "dashboard_group",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ACK2",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "click",
+        "payloadType": "str",
+        "topic": "ack",
+        "topicType": "str",
+        "x": 110,
+        "y": 440,
+        "wires": [
+            [
+                "d6edf2e7e0a4d13e"
+            ]
+        ]
+    },
+    {
+        "id": "6db99352c9276690",
+        "type": "function",
+        "z": "fbc7525fdf5128ad",
+        "name": "Handle Problem",
+        "func": "let problemCount = flow.get('problemCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'problem' && !isProblemActive) {\n    problemCount = 1;\n    isProblemActive = true;\n    flow.set('problemCount', problemCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { problemCount: problemCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 400,
+        "y": 320,
+        "wires": [
+            [
+                "d1845c961e9e94f5"
+            ]
+        ]
+    },
+    {
+        "id": "d6edf2e7e0a4d13e",
+        "type": "function",
+        "z": "fbc7525fdf5128ad",
+        "name": "Handle ACK",
+        "func": "let ackCount = flow.get('ackCount') || 0;\nlet problemCount = flow.get('problemCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'ack' && isProblemActive) {\n    ackCount += problemCount;\n    problemCount = 0;\n    isProblemActive = false;\n    flow.set('ackCount', ackCount);\n    flow.set('problemCount', problemCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { ackCount: ackCount, problemCount: problemCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 390,
+        "y": 400,
+        "wires": [
+            [
+                "d1845c961e9e94f5"
+            ]
+        ]
+    },
+    {
+        "id": "d1845c961e9e94f5",
+        "type": "ui_template",
+        "z": "fbc7525fdf5128ad",
+        "group": "dashboard_group",
+        "name": "Display Counts",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<div>\n    <p>Problem Count: {{msg.payload.problemCount || 0}}</p>\n    <p>ACK Count: {{msg.payload.ackCount || 0}}</p>\n    <p>Problem Active: {{msg.payload.isProblemActive ? 'Yes' : 'No'}}</p>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 700,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dashboard_group",
+        "type": "ui_group",
+        "name": "Simulation",
+        "tab": "dashboard_tab",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "dashboard_tab",
+        "type": "ui_tab",
+        "name": "Simulation",
+        "icon": "dashboard"
+    }
+]

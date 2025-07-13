@@ -1,0 +1,120 @@
+[
+    {
+        "id": "1f827614651abbe7",
+        "type": "tab",
+        "label": "Flow 3",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "problem_button",
+        "type": "ui_button",
+        "z": "1f827614651abbe7",
+        "name": "PROBLEM",
+        "group": "dashboard_group",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "PROBLEM",
+        "payload": "click",
+        "payloadType": "str",
+        "topic": "problem",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "problem_function"
+            ]
+        ]
+    },
+    {
+        "id": "ack_button",
+        "type": "ui_button",
+        "z": "1f827614651abbe7",
+        "name": "ACK",
+        "group": "dashboard_group",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "ACK",
+        "payload": "click",
+        "payloadType": "str",
+        "topic": "ack",
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "ack_function"
+            ]
+        ]
+    },
+    {
+        "id": "problem_function",
+        "type": "function",
+        "z": "1f827614651abbe7",
+        "name": "Handle Problem",
+        "func": "let problemCount = flow.get('problemCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'problem') {\n    problemCount++;\n    isProblemActive = true;\n    flow.set('problemCount', problemCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { problemCount: problemCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 380,
+        "y": 360,
+        "wires": [
+            [
+                "display_output"
+            ]
+        ]
+    },
+    {
+        "id": "ack_function",
+        "type": "function",
+        "z": "1f827614651abbe7",
+        "name": "Handle ACK",
+        "func": "let ackCount = flow.get('ackCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'ack' && isProblemActive) {\n    ackCount++;\n    isProblemActive = false;\n    flow.set('ackCount', ackCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { ackCount: ackCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "display_output"
+            ]
+        ]
+    },
+    {
+        "id": "display_output",
+        "type": "ui_template",
+        "z": "1f827614651abbe7",
+        "group": "dashboard_group",
+        "name": "Display Counts",
+        "order": 3,
+        "width": 0,
+        "height": 0,
+        "format": "<div>\n    <p>Problem Count: {{msg.payload.problemCount || 0}}</p>\n    <p>ACK Count: {{msg.payload.ackCount || 0}}</p>\n    <p>Problem Active: {{msg.payload.isProblemActive ? 'Yes' : 'No'}}</p>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "templateScope": "local",
+        "x": 700,
+        "y": 400,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "dashboard_group",
+        "type": "ui_group",
+        "name": "Simulation",
+        "tab": "dashboard_tab",
+        "order": 1,
+        "disp": true,
+        "width": "6"
+    },
+    {
+        "id": "dashboard_tab",
+        "type": "ui_tab",
+        "name": "Simulation",
+        "icon": "dashboard"
+    }
+]
