@@ -492,8 +492,8 @@
         "payloadType": "str",
         "topic": "problem",
         "topicType": "str",
-        "x": 130,
-        "y": 280,
+        "x": 230,
+        "y": 300,
         "wires": [
             [
                 "6db99352c9276690"
@@ -520,8 +520,8 @@
         "payloadType": "str",
         "topic": "ack",
         "topicType": "str",
-        "x": 110,
-        "y": 440,
+        "x": 210,
+        "y": 460,
         "wires": [
             [
                 "d6edf2e7e0a4d13e"
@@ -533,14 +533,19 @@
         "type": "function",
         "z": "fbc7525fdf5128ad",
         "name": "Handle Problem",
-        "func": "let problemCount = flow.get('problemCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'problem' && !isProblemActive) {\n    problemCount = 1;\n    isProblemActive = true;\n    flow.set('problemCount', problemCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { problemCount: problemCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "func": "let isProblemActive = flow.get('isProblemActive') || 0;\nisProblemActive = isProblemActive === 0 ? 1 : 0;\nflow.set('isProblemActive', isProblemActive);\n\n// Do not send value to the button, only to display\nlet isAckActive = flow.get('isAckActive') || 0;\n\nmsg.payload = {\n    isProblemActive,\n    isAckActive\n};\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
-        "x": 400,
-        "y": 320,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 620,
+        "y": 360,
         "wires": [
             [
-                "d1845c961e9e94f5"
+                "d1845c961e9e94f5",
+                "d33497a5d3417bb9"
             ]
         ]
     },
@@ -549,14 +554,19 @@
         "type": "function",
         "z": "fbc7525fdf5128ad",
         "name": "Handle ACK",
-        "func": "let ackCount = flow.get('ackCount') || 0;\nlet problemCount = flow.get('problemCount') || 0;\nlet isProblemActive = flow.get('isProblemActive') || false;\n\nif (msg.topic === 'ack' && isProblemActive) {\n    ackCount += problemCount;\n    problemCount = 0;\n    isProblemActive = false;\n    flow.set('ackCount', ackCount);\n    flow.set('problemCount', problemCount);\n    flow.set('isProblemActive', isProblemActive);\n}\n\nmsg.payload = { ackCount: ackCount, problemCount: problemCount, isProblemActive: isProblemActive };\nreturn msg;",
+        "func": "let isAckActive = flow.get('isAckActive') || 0;\nisAckActive = isAckActive === 0 ? 1 : 0;\nflow.set('isAckActive', isAckActive);\n\nlet isProblemActive = flow.get('isProblemActive') || 0;\n\nmsg.payload = {\n    isProblemActive,\n    isAckActive\n};\nreturn msg;",
         "outputs": 1,
+        "timeout": "",
         "noerr": 0,
-        "x": 390,
-        "y": 400,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 440,
         "wires": [
             [
-                "d1845c961e9e94f5"
+                "d1845c961e9e94f5",
+                "efef5cd0a70b182d"
             ]
         ]
     },
@@ -565,18 +575,112 @@
         "type": "ui_template",
         "z": "fbc7525fdf5128ad",
         "group": "dashboard_group",
-        "name": "Display Counts",
+        "name": "Display States",
         "order": 3,
         "width": 0,
         "height": 0,
-        "format": "<div>\n    <p>Problem Count: {{msg.payload.problemCount || 0}}</p>\n    <p>ACK Count: {{msg.payload.ackCount || 0}}</p>\n    <p>Problem Active: {{msg.payload.isProblemActive ? 'Yes' : 'No'}}</p>\n</div>",
+        "format": "<div style=\"font-size: 18px;\">\n    <p>\n        <strong>ACK State:</strong>\n        <span style=\"color: {{msg.payload.isAckActive ? 'green' : 'red'}};\">\n            {{msg.payload.isAckActive ? 'Yes' : 'No'}}\n        </span>\n    </p>\n    <p>\n        <strong>Problem State:</strong>\n        <span style=\"color: {{msg.payload.isProblemActive ? 'green' : 'red'}};\">\n            {{msg.payload.isProblemActive ? 'Yes' : 'No'}}\n        </span>\n    </p>\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
+        "resendOnRefresh": false,
         "templateScope": "local",
-        "x": 700,
-        "y": 380,
+        "className": "",
+        "x": 920,
+        "y": 420,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "837ee71f4b1a1793",
+        "type": "inject",
+        "z": "fbc7525fdf5128ad",
+        "name": "TestProblem",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "problem",
+        "payload": "",
+        "payloadType": "date",
+        "x": 370,
+        "y": 200,
+        "wires": [
+            [
+                "6db99352c9276690"
+            ]
+        ]
+    },
+    {
+        "id": "d33497a5d3417bb9",
+        "type": "debug",
+        "z": "fbc7525fdf5128ad",
+        "name": "debug 4",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 880,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "3549d29da56350e6",
+        "type": "inject",
+        "z": "fbc7525fdf5128ad",
+        "name": "TestACK",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "ack",
+        "payload": "",
+        "payloadType": "date",
+        "x": 360,
+        "y": 580,
+        "wires": [
+            [
+                "d6edf2e7e0a4d13e"
+            ]
+        ]
+    },
+    {
+        "id": "efef5cd0a70b182d",
+        "type": "debug",
+        "z": "fbc7525fdf5128ad",
+        "name": "debug 5",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 580,
+        "wires": []
     }
 ]
