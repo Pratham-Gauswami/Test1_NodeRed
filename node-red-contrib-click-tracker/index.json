@@ -1,0 +1,13 @@
+module.exports = function(RED) {
+    function ClickTrackerNode(config) {
+        RED.nodes.createNode(this, config);
+        const node = this;
+
+        node.on('input', function(msg) {
+            msg.payload = `Clicked from: ${node.name || "click-tracker node"}`;
+            node.send(msg);
+        });
+    }
+
+    RED.nodes.registerType("click-tracker", ClickTrackerNode);
+};

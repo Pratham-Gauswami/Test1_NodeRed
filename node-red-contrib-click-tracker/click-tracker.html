@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('click-tracker', {
+        category: 'function',
+        color: '#a6bbcf',
+        defaults: {
+            name: { value: "" }
+        },
+        inputs: 1,
+        outputs: 1,
+        icon: "font-awesome/fa-hand-pointer-o",
+        label: function() {
+            return this.name || "click-tracker";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="click-tracker">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="click-tracker">
+    <p>This node sends a message with a payload identifying the source of the click.</p>
+</script>

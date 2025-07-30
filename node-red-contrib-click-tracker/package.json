@@ -1,0 +1,16 @@
+{
+  "name": "node-red-contrib-click-tracker",
+  "version": "1.0.0",
+  "description": "Custom Node-RED node to track button clicks",
+  "main": "index.js",
+  "keywords": [
+    "node-red"
+  ],
+  "node-red": {
+    "nodes": {
+      "click-tracker": "click-tracker.js"
+    }
+  },
+  "author": "Pratham Gauswami",
+  "license": "MIT"
+}
